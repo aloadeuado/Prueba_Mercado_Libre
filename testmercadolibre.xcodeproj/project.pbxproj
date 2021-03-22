@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9536F26E26082BF800A5B6A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9536F26D26082BF800A5B6A7 /* AppDelegate.swift */; };
-		9536F27026082BF800A5B6A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9536F26F26082BF800A5B6A7 /* SceneDelegate.swift */; };
 		9536F27226082BF800A5B6A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9536F27126082BF800A5B6A7 /* ViewController.swift */; };
 		9536F27526082BF800A5B6A7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9536F27326082BF800A5B6A7 /* Main.storyboard */; };
 		9536F27826082BF800A5B6A7 /* testmercadolibre.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9536F27626082BF800A5B6A7 /* testmercadolibre.xcdatamodeld */; };
@@ -38,7 +37,6 @@
 /* Begin PBXFileReference section */
 		9536F26A26082BF800A5B6A7 /* testmercadolibre.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testmercadolibre.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9536F26D26082BF800A5B6A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9536F26F26082BF800A5B6A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9536F27126082BF800A5B6A7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9536F27426082BF800A5B6A7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9536F27726082BF800A5B6A7 /* testmercadolibre.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = testmercadolibre.xcdatamodel; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 			isa = PBXGroup;
 			children = (
 				9536F26D26082BF800A5B6A7 /* AppDelegate.swift */,
-				9536F26F26082BF800A5B6A7 /* SceneDelegate.swift */,
 				9536F27126082BF800A5B6A7 /* ViewController.swift */,
 				9536F27326082BF800A5B6A7 /* Main.storyboard */,
 				9536F27926082BFB00A5B6A7 /* Assets.xcassets */,
@@ -264,7 +261,6 @@
 				9536F27226082BF800A5B6A7 /* ViewController.swift in Sources */,
 				9536F26E26082BF800A5B6A7 /* AppDelegate.swift in Sources */,
 				9536F27826082BF800A5B6A7 /* testmercadolibre.xcdatamodeld in Sources */,
-				9536F27026082BF800A5B6A7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
