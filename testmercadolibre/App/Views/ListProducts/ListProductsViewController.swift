@@ -9,7 +9,12 @@ import UIKit
 
 class ListProductsViewController: UIViewController {
     @IBOutlet weak var searchBarView: SearchBarView!
+    @IBOutlet weak var filterCategoryView: FilterCategoryView!
     
+    var listProductsViewModel: ListProductsViewModel?
+    
+    var siteModel: SiteModel?
+    var listCategies = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
         initComponent()
@@ -18,6 +23,11 @@ class ListProductsViewController: UIViewController {
     
     func initComponent(){
         searchBarView.delegate = self
+        listProductsViewModel = ListProductsViewModel(listProductsViewModelDelegate: self)
+        if let site = siteModel {
+            listProductsViewModel?.getCategoriesOfSites(siteId: site.id)
+        }
+        filterCategoryView.setCategoryFilter(categoryTextArray: ["Amor", "Hermoso"])
     }
 
     /*
@@ -31,6 +41,7 @@ class ListProductsViewController: UIViewController {
     */
 
 }
+//MARK: -SearchBarViewDelegate
 extension ListProductsViewController: SearchBarViewDelegate {
     func searchBarView(didEdintingText text: String) {
 
@@ -38,6 +49,22 @@ extension ListProductsViewController: SearchBarViewDelegate {
     
     func searchBarView(didClearText textBeforeClear: String) {
 
+    }
+    
+    
+}
+//MARK: -ListProductsViewModel
+extension ListProductsViewController: ListProductsViewModelDelegate {
+    func listProductsViewModel(succesGetCategories categories: [CategoryModel]) {
+        listCategies = [String]()
+        categories.forEach { (categoryModel) in
+            listCategies.append(categoryModel.name)
+        }
+        filterCategoryView.setCategoryFilter(categoryTextArray: listCategies)
+    }
+    
+    func listProductsViewModel(onError error: String) {
+        
     }
     
     

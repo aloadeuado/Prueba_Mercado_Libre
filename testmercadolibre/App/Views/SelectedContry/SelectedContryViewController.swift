@@ -61,8 +61,15 @@ extension SelectedContryViewController {
     @IBAction func continuePressed(button: UIButton) {
         if let siteModel1 = siteModel{
             selectedContryViewModel?.setInternalSite(site: siteModel1)
+            performSegue(withIdentifier: "showListProduct", sender: nil)
         }
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? ListProductsViewController {
+            controller.siteModel = siteModel
+        }
     }
 }
 //MARK: -UITableViewDelegate
