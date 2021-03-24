@@ -1,0 +1,13 @@
+//
+//  develop.xcconfig
+//  testmercadolibre
+//
+//  Created by Pedro Alonso Daza B on 22/03/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+
+API_BASE_URL = https:/$()/api.mercadolibre.com/
+API_REST_DETAIL_SITE = https:/$()/restcountries.eu/rest/v2/name/{name}
