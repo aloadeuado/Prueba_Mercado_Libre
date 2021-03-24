@@ -10,6 +10,7 @@ import Foundation
 enum Api {
     case getAllSites
     case getDetailSite
+    case getCategoriesOfSite
 }
 
 func getStringInfoPList(key: String) -> String {
@@ -23,6 +24,9 @@ func getApi(api: Api) -> String{
         return url
     case .getDetailSite:
         let url = getStringInfoPList(key: "API_REST_DETAIL_SITE")
+        return url
+    case .getCategoriesOfSite:
+        let url = getStringInfoPList(key: "API_BASE_URL") + "/sites/{siteId}/categories"
         return url
     default:
         return "/sites"
