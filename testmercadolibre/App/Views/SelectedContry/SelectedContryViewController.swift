@@ -9,9 +9,11 @@ import UIKit
 
 class SelectedContryViewController: UIViewController {
 
+
     @IBOutlet weak var sitesTableView: UITableView!
     @IBOutlet weak var continueButton: CustomEnabledButton!
     
+    var isLoadingSites = false
     var selectedContryViewModel: SelectedContryViewModel?
     
     var listSitesModel = [SiteModel]()
@@ -24,8 +26,12 @@ class SelectedContryViewController: UIViewController {
     
     func initComponent(){
         selectedContryViewModel = SelectedContryViewModel(selectedContryDelegate: self)
+        isLoadingSites = true
         selectedContryViewModel?.getSites()
         setStateButton()
+        if selectedContryViewModel?.getKeepSite() == "Save" {
+            self.performSegue(withIdentifier: "showListProduct", sender: nil)
+        }
         
     }
     
@@ -60,8 +66,16 @@ class SelectedContryViewController: UIViewController {
 extension SelectedContryViewController {
     @IBAction func continuePressed(button: UIButton) {
         if let siteModel1 = siteModel{
-            selectedContryViewModel?.setInternalSite(site: siteModel1)
-            performSegue(withIdentifier: "showListProduct", sender: nil)
+            AlerMessageThreeOptionsViewController.show(controller: self, textMessagge: TextConstants().ALERT_MESSAGGE_KEE_SITE) {
+                self.selectedContryViewModel?.setKeepSite()
+                self.selectedContryViewModel?.setInternalSite(site: siteModel1)
+                self.performSegue(withIdentifier: "showListProduct", sender: nil)
+            } option2: {
+                self.selectedContryViewModel?.setInternalSite(site: siteModel1)
+                self.performSegue(withIdentifier: "showListProduct", sender: nil)
+            } option3: {
+                
+            }
         }
         
     }
@@ -85,7 +99,7 @@ extension SelectedContryViewController: UITableViewDataSource {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listSitesModel.count
+        return (isLoadingSites) ? 3 : listSitesModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -93,7 +107,13 @@ extension SelectedContryViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.delegate = self
-        cell.setData(site: listSitesModel[indexPath.row], indexPath: indexPath)
+        if (isLoadingSites) {
+            cell.showSpinner()
+        } else {
+            
+            cell.stopSpinner()
+            cell.setData(site: listSitesModel[indexPath.row], indexPath: indexPath)
+        }
         return cell
     }
     
@@ -114,20 +134,21 @@ extension SelectedContryViewController: SelectedContryTableViewCellDelegate{
 //MARK: -SelectedContryDelegate
 extension SelectedContryViewController: SelectedContryDelegate {
     func selectedContry(succesCompleteDetail siteDetail: SiteDetailModel) {
-        
+        isLoadingSites = false
     }
     
     func selectedContry(succesComplete listSites: [SiteModel]) {
+        isLoadingSites = false
         self.listSitesModel = listSites
         sitesTableView.reloadData()
     }
     
     func selectedContry(onNoData nodata: String) {
-        
+        isLoadingSites = false
     }
     
     func selectedContry(onError error: String) {
-        
+        isLoadingSites = false
     }
     
     

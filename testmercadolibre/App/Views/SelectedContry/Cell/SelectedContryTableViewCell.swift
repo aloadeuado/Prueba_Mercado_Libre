@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 import SDWebImage
 import WebKit
+import ABLoaderView
+
 class SelectedContryTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var contentViewShimmer: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var region: UILabel!
     @IBOutlet weak var flagImageView: UIImageView!
@@ -28,6 +32,23 @@ class SelectedContryTableViewCell: UITableViewCell {
         stateSwicth.isOn = site.state
         
     }
+    
+    func showSpinner() {
+
+            for view1 in contentViewShimmer.subviews {
+                 ABLoader().startShining(view1)
+             }
+         
+     }
+    
+    func stopSpinner() {
+
+            for view1 in contentViewShimmer.subviews {
+                ABLoader().stopShining(view1)
+            }
+
+           
+       }
     
    
 }

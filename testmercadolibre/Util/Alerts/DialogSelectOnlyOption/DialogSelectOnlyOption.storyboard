@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="MkB-bT-jVH">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dialog Select Only Option View Controller-->
+        <scene sceneID="cgm-UX-IHa">
+            <objects>
+                <viewController storyboardIdentifier="DialogSelectOnlyOptionViewController" id="MkB-bT-jVH" customClass="DialogSelectOnlyOptionViewController" customModule="testmercadolibre" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="faw-fa-tju">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xcK-h5-sdl" customClass="CustomView" customModule="testmercadolibre" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="642" width="414" height="268"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fcl-Mp-5nI" customClass="CustomButton" customModule="testmercadolibre" customModuleProvider="target">
+                                        <rect key="frame" x="212.5" y="5" width="201.5" height="48"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="l2i-6e-f0q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Continue">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="continuePressed:" destination="MkB-bT-jVH" eventType="touchUpInside" id="njC-2t-YAZ"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKL-lQ-pWe">
+                                        <rect key="frame" x="206.5" y="0.0" width="1" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6Ni-xT-28M"/>
+                                            <constraint firstAttribute="width" constant="1" id="UfO-is-efR"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-eL-abO" customClass="CustomButton" customModule="testmercadolibre" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="7" width="201.5" height="44"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="cancelPressed:" destination="MkB-bT-jVH" eventType="touchUpInside" id="5iz-OT-T3v"/>
+                                        </connections>
+                                    </button>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKF-8Q-0ne">
+                                        <rect key="frame" x="0.0" y="58" width="414" height="162"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="162" id="x7I-nf-lh0"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="MkB-bT-jVH" id="KFQ-He-V28"/>
+                                            <outlet property="delegate" destination="MkB-bT-jVH" id="HlZ-6F-HpM"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="WWu-eL-abO" firstAttribute="top" secondItem="xcK-h5-sdl" secondAttribute="top" constant="7" id="3JO-eM-pEZ"/>
+                                    <constraint firstItem="Fcl-Mp-5nI" firstAttribute="leading" secondItem="yKL-lQ-pWe" secondAttribute="trailing" constant="5" id="65F-QK-VRJ"/>
+                                    <constraint firstItem="Fcl-Mp-5nI" firstAttribute="top" secondItem="xcK-h5-sdl" secondAttribute="top" constant="5" id="7wy-YC-xnp"/>
+                                    <constraint firstItem="yKL-lQ-pWe" firstAttribute="centerX" secondItem="xcK-h5-sdl" secondAttribute="centerX" id="Kl4-qO-sT8"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fcl-Mp-5nI" secondAttribute="trailing" id="O5b-17-7Ey"/>
+                                    <constraint firstItem="WWu-eL-abO" firstAttribute="leading" secondItem="xcK-h5-sdl" secondAttribute="leading" id="Wx3-a1-0C9"/>
+                                    <constraint firstAttribute="trailing" secondItem="FKF-8Q-0ne" secondAttribute="trailing" id="Ys2-sl-Iyd"/>
+                                    <constraint firstItem="yKL-lQ-pWe" firstAttribute="top" secondItem="xcK-h5-sdl" secondAttribute="top" id="bXb-Wx-3XO"/>
+                                    <constraint firstItem="FKF-8Q-0ne" firstAttribute="top" secondItem="Fcl-Mp-5nI" secondAttribute="bottom" constant="5" id="dw9-tk-CE4"/>
+                                    <constraint firstItem="FKF-8Q-0ne" firstAttribute="top" secondItem="WWu-eL-abO" secondAttribute="bottom" constant="7" id="feH-xp-ioh"/>
+                                    <constraint firstItem="yKL-lQ-pWe" firstAttribute="leading" secondItem="WWu-eL-abO" secondAttribute="trailing" constant="5" id="kZX-f9-bgj"/>
+                                    <constraint firstAttribute="bottom" secondItem="FKF-8Q-0ne" secondAttribute="bottom" constant="48" id="qkS-7Z-Mob"/>
+                                    <constraint firstItem="FKF-8Q-0ne" firstAttribute="leading" secondItem="xcK-h5-sdl" secondAttribute="leading" id="tUG-dO-oVx"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="24"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="1wV-YI-uhe"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29985800271157453" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="1wV-YI-uhe" firstAttribute="trailing" secondItem="xcK-h5-sdl" secondAttribute="trailing" id="G6z-KY-0d8"/>
+                            <constraint firstItem="xcK-h5-sdl" firstAttribute="leading" secondItem="1wV-YI-uhe" secondAttribute="leading" id="GMr-yD-De2"/>
+                            <constraint firstItem="xcK-h5-sdl" firstAttribute="bottom" secondItem="1wV-YI-uhe" secondAttribute="bottom" constant="48" id="o4c-xL-zQX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="WWu-eL-abO" id="8AI-fL-XSw"/>
+                        <outlet property="continueButton" destination="Fcl-Mp-5nI" id="Gw9-J5-W1S"/>
+                        <outlet property="pickerView" destination="FKF-8Q-0ne" id="RJD-Uo-I5D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Zb-ju-ik3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="68.115942028985515" y="51.5625"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Fcl-Mp-5nI">
+            <size key="intrinsicContentSize" width="71" height="32"/>
+        </designable>
+        <designable name="WWu-eL-abO">
+            <size key="intrinsicContentSize" width="54" height="32"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

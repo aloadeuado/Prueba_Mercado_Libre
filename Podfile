@@ -7,6 +7,8 @@ target 'testmercadolibre' do
 
   pod 'Alamofire', '~> 5.2'
   pod 'SDWebImage', '~> 5.0'
+  pod 'ABLoaderView', '~> 1.0.2'
+  pod 'MaterialComponents/Chips'
   # Pods for testmercadolibre
 
   target 'testmercadolibreTests' do

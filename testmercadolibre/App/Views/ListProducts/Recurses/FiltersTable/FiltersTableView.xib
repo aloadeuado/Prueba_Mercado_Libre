@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FiltersTableView" customModule="testmercadolibre" customModuleProvider="target">
+            <connections>
+                <outlet property="contentView" destination="iN0-l3-epB" id="gXk-Is-05Y"/>
+                <outlet property="tableView" destination="6LD-vQ-jRi" id="Z3K-xA-RHO"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KxG-Bx-5u5" customClass="CustomEnabledButton" customModule="testmercadolibre" customModuleProvider="target">
+                    <rect key="frame" x="20" y="807" width="374" height="45"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="oyA-Yo-FFh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Apply">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="applyPressedWithButton:" destination="-1" eventType="touchUpInside" id="0PQ-Cr-05a"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6LD-vQ-jRi">
+                    <rect key="frame" x="0.0" y="44" width="414" height="748"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="uvg-5A-GRD"/>
+                        <outlet property="delegate" destination="-1" id="yKC-sq-UFj"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="6LD-vQ-jRi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="DXX-Il-Kor"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="KxG-Bx-5u5" secondAttribute="bottom" constant="10" id="GEw-Cw-Sba"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="6LD-vQ-jRi" secondAttribute="trailing" id="ZYa-M5-0cB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="KxG-Bx-5u5" secondAttribute="trailing" constant="20" id="aGU-RI-CX7"/>
+                <constraint firstItem="KxG-Bx-5u5" firstAttribute="top" secondItem="6LD-vQ-jRi" secondAttribute="bottom" constant="15" id="gfK-F9-XnX"/>
+                <constraint firstItem="KxG-Bx-5u5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="qub-JE-tVY"/>
+                <constraint firstItem="6LD-vQ-jRi" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="zXF-G7-Gvd"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="13.043478260869566" y="81.696428571428569"/>
+        </view>
+    </objects>
+    <designables>
+        <designable name="KxG-Bx-5u5">
+            <size key="intrinsicContentSize" width="43" height="30"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

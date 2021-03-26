@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Aler Message Three Options View Controller-->
+        <scene sceneID="WiZ-DC-NcW">
+            <objects>
+                <viewController storyboardIdentifier="AlerMessageThreeOptionsViewController" id="wkU-Vv-u2W" customClass="AlerMessageThreeOptionsViewController" customModule="testmercadolibre" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f0E-sF-pqu">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pvm-Bh-Ota" customClass="CustomView" customModule="testmercadolibre" customModuleProvider="target">
+                                <rect key="frame" x="24" y="267" width="366" height="372.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6J7-m4-XMe">
+                                        <rect key="frame" x="42" y="42" width="282" height="95.5"/>
+                                        <string key="text">En este momento no puedes comprar boletas de sorteo y otro tipo de producto simultáneamente. Finaliza esta compra y luego podrás adquirir el otro producto que deseas.</string>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vqn-MB-5eJ" customClass="CustomButton" customModule="testmercadolibre" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="172.5" width="318" height="48"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="xrg-gy-cD4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="option1PressedWithButton:" destination="wkU-Vv-u2W" eventType="touchUpInside" id="crG-pN-lRo"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cti-BU-K4v" customClass="CustomButton" customModule="testmercadolibre" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="236.5" width="318" height="48"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="option2PressedWithButton:" destination="wkU-Vv-u2W" eventType="touchUpInside" id="I9Y-jI-31s"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PyA-PA-8jv" customClass="CustomButton" customModule="testmercadolibre" customModuleProvider="target">
+                                        <rect key="frame" x="24" y="300.5" width="318" height="48"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="option3PressedWithButton:" destination="wkU-Vv-u2W" eventType="touchUpInside" id="k9J-Ta-cHp"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6J7-m4-XMe" secondAttribute="trailing" constant="42" id="20N-XC-3DX"/>
+                                    <constraint firstItem="PyA-PA-8jv" firstAttribute="leading" secondItem="Cti-BU-K4v" secondAttribute="leading" id="2oZ-jd-DWT"/>
+                                    <constraint firstItem="Cti-BU-K4v" firstAttribute="height" secondItem="Vqn-MB-5eJ" secondAttribute="height" id="8yE-nh-b0M"/>
+                                    <constraint firstItem="PyA-PA-8jv" firstAttribute="trailing" secondItem="Cti-BU-K4v" secondAttribute="trailing" id="GtK-HP-gbS"/>
+                                    <constraint firstItem="Cti-BU-K4v" firstAttribute="leading" secondItem="Vqn-MB-5eJ" secondAttribute="leading" id="USn-pu-Wj6"/>
+                                    <constraint firstItem="6J7-m4-XMe" firstAttribute="top" secondItem="Pvm-Bh-Ota" secondAttribute="top" constant="42" id="V8p-6a-dHy"/>
+                                    <constraint firstItem="Cti-BU-K4v" firstAttribute="top" secondItem="Vqn-MB-5eJ" secondAttribute="bottom" constant="16" id="VDr-Lc-PSB"/>
+                                    <constraint firstItem="Vqn-MB-5eJ" firstAttribute="top" secondItem="6J7-m4-XMe" secondAttribute="bottom" constant="35" id="Xue-6J-xcC"/>
+                                    <constraint firstItem="Cti-BU-K4v" firstAttribute="trailing" secondItem="Vqn-MB-5eJ" secondAttribute="trailing" id="eb1-Tx-r59"/>
+                                    <constraint firstItem="6J7-m4-XMe" firstAttribute="leading" secondItem="Pvm-Bh-Ota" secondAttribute="leading" constant="42" id="js4-9u-Mvs"/>
+                                    <constraint firstItem="PyA-PA-8jv" firstAttribute="top" secondItem="Cti-BU-K4v" secondAttribute="bottom" constant="16" id="mff-in-IaZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="PyA-PA-8jv" secondAttribute="bottom" constant="24" id="okl-vD-hQy"/>
+                                    <constraint firstItem="PyA-PA-8jv" firstAttribute="height" secondItem="Cti-BU-K4v" secondAttribute="height" id="rwf-xm-wW4"/>
+                                    <constraint firstItem="Vqn-MB-5eJ" firstAttribute="leading" secondItem="Pvm-Bh-Ota" secondAttribute="leading" constant="24" id="zbO-PG-LKe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Vqn-MB-5eJ" secondAttribute="trailing" constant="24" id="zm2-el-LhC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="16"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="MCT-nQ-4K2"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.30461672386741062" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Pvm-Bh-Ota" firstAttribute="centerY" secondItem="MCT-nQ-4K2" secondAttribute="centerY" id="dPI-7O-A4i"/>
+                            <constraint firstItem="Pvm-Bh-Ota" firstAttribute="leading" secondItem="MCT-nQ-4K2" secondAttribute="leading" constant="24" id="eDS-6i-q0q"/>
+                            <constraint firstItem="MCT-nQ-4K2" firstAttribute="trailing" secondItem="Pvm-Bh-Ota" secondAttribute="trailing" constant="24" id="frq-Rk-4Iw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messaggeLabel" destination="6J7-m4-XMe" id="gSq-jn-7T6"/>
+                        <outlet property="option1Button" destination="Vqn-MB-5eJ" id="vS8-wB-KKG"/>
+                        <outlet property="option2Button" destination="Cti-BU-K4v" id="VHL-7e-RrY"/>
+                        <outlet property="option3Button" destination="PyA-PA-8jv" id="16T-Xx-d9K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AFn-eh-DUY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-112" y="85"/>
+        </scene>
+    </scenes>
+    <designables>
+        <designable name="Cti-BU-K4v">
+            <size key="intrinsicContentSize" width="53" height="32"/>
+        </designable>
+        <designable name="PyA-PA-8jv">
+            <size key="intrinsicContentSize" width="53" height="32"/>
+        </designable>
+        <designable name="Vqn-MB-5eJ">
+            <size key="intrinsicContentSize" width="53" height="32"/>
+        </designable>
+    </designables>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

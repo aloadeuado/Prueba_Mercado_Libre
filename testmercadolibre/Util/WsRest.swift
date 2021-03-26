@@ -11,6 +11,7 @@ enum Api {
     case getAllSites
     case getDetailSite
     case getCategoriesOfSite
+    case getProducts
 }
 
 func getStringInfoPList(key: String) -> String {
@@ -27,6 +28,9 @@ func getApi(api: Api) -> String{
         return url
     case .getCategoriesOfSite:
         let url = getStringInfoPList(key: "API_BASE_URL") + "/sites/{siteId}/categories"
+        return url
+    case .getProducts:
+        let url = getStringInfoPList(key: "API_BASE_URL") + "/sites/{siteId}/search?"
         return url
     default:
         return "/sites"

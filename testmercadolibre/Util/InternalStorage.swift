@@ -20,4 +20,17 @@ func getData(didGetData key: String) -> Data{
     }
     return Data()
 }
+
+func setString(didSetString data: String, key: String){
+    let defaults = UserDefaults.standard
+    defaults.set(data, forKey: key)
+}
+
+func getString(didGetString key: String) -> String{
+    let defaults = UserDefaults.standard
+    if let data = defaults.string(forKey: key) as? String {
+        return data
+    }
+    return ""
+}
     

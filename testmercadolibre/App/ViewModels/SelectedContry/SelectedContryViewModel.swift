@@ -38,6 +38,14 @@ class SelectedContryViewModel{
     func setInternalSite(site: SiteModel) {
         contryRepository.setInternalSite(site: site)
     }
+    
+    func setKeepSite(){
+        setString(didSetString: "Save", key: "keyKeepSite")
+    }
+    
+    func getKeepSite() -> String{
+        return getString(didGetString: "keyKeepSite")
+    }
 }
 protocol SelectedContryDelegate {
     func selectedContry(succesComplete listSites: [SiteModel])

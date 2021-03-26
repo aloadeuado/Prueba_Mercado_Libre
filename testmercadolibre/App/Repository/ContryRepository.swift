@@ -13,6 +13,7 @@ class ContryRepository {
         getReturnData(url: url, statusCorrect: [200, 201]) { (data) in
             let sites = try? JSONDecoder().decode([SiteModel].self, from: data)
             let sitesReturn = sites ?? [SiteModel]()
+            print(sitesReturn)
             if sitesReturn.count >= 1 {
                 ok(sitesReturn)
             } else {

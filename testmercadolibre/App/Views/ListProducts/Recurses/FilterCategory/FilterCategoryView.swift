@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import ABLoaderView
 protocol selectCategoryDelegate {
     func selectIndexCategory(index: Int, categoryText: String)
 }
@@ -78,20 +78,23 @@ class FilterCategoryView: UIView {
     func setCategoryFilter(categoryTextArray: [String]) {
         generalScrollView.subviews.forEach({ $0.removeFromSuperview() })
         self.categoryTextArray = categoryTextArray
+        listLabel = [UILabel]()
+        listButton = [UIButton]()
         createViewFont()
         configureScrollView()
-        setValue(view: listButton[0])
+        buttonAction(sender: listButton[0])
+        
     }
     
     func showSpinner() {
         for view in generalScrollView.subviews {
-            //ABLoader().startShining(view)
+            ABLoader().startShining(view)
         }
     }
     
     func stopSpinner() {
         for view in generalScrollView.subviews {
-            //ABLoader().stopShining(view)
+            ABLoader().stopShining(view)
         }
         
     }
@@ -112,6 +115,8 @@ class FilterCategoryView: UIView {
             categoryLabel.textAlignment = .center
             categoryLabel.textColor = #colorLiteral(red: 0.2039215686, green: 0.2039215686, blue: 0.2039215686, alpha: 1)
             categoryLabel.layer.cornerRadius = 10
+            categoryLabel.layer.borderWidth = 1
+            categoryLabel.layer.borderColor = #colorLiteral(red: 0.2039215686, green: 0.2039215686, blue: 0.2039215686, alpha: 1)
             categoryLabel.tag = i
             
             let categoryButton = UIButton(frame: categoryLabel.frame)
@@ -130,6 +135,9 @@ class FilterCategoryView: UIView {
         }
         
         generalScrollView.contentSize = CGSize(width: xOrigin + 80, height: generalScrollView.frame.height)
+        
+        //self.viewSelect.frame = listLabel[0].frame
+        
         
     }
     
