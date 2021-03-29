@@ -1,27 +1,30 @@
 //
-//  Sort.swift
+//  AvailableFilter.swift
 //  testmercadolibre
 //
 //  Created by Pedro Alonso Daza B on 28/03/21.
 //
 
 import Foundation
-// MARK: - Sort
-class Sort: Codable {
-    let id, name: String
+// MARK: - AvailableFilter
+class AvailableFilter: Codable {
+    let id, name, type: String
+    let values: [AvailableFilterValue]
 
-    init(id: String, name: String) {
+    init(id: String, name: String, type: String, values: [AvailableFilterValue]) {
         self.id = id
         self.name = name
+        self.type = type
+        self.values = values
     }
 }
 
-// MARK: Sort convenience initializers and mutators
+// MARK: AvailableFilter convenience initializers and mutators
 
-extension Sort {
+extension AvailableFilter {
     convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(Sort.self, from: data)
-        self.init(id: me.id, name: me.name)
+        let me = try newJSONDecoder().decode(AvailableFilter.self, from: data)
+        self.init(id: me.id, name: me.name, type: me.type, values: me.values)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -37,11 +40,15 @@ extension Sort {
 
     func with(
         id: String? = nil,
-        name: String? = nil
-    ) -> Sort {
-        return Sort(
+        name: String? = nil,
+        type: String? = nil,
+        values: [AvailableFilterValue]? = nil
+    ) -> AvailableFilter {
+        return AvailableFilter(
             id: id ?? self.id,
-            name: name ?? self.name
+            name: name ?? self.name,
+            type: type ?? self.type,
+            values: values ?? self.values
         )
     }
 

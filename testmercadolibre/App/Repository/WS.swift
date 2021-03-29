@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 func getReturnData(url: String, statusCorrect: [Int], ok: @escaping((Data) -> Void), error: @escaping ((String) -> Void)) {
-    
+
     let request = AF.request(url)
     
     request.response { (response) in

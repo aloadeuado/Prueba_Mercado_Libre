@@ -9,16 +9,42 @@ import Foundation
 
 class ProductRepository {
     
-    func getProducts(siteId: String, offset: Int32, limit: Int32, sort: String, filters: [SortData], ok: @escaping ((Product) -> Void), error: @escaping ((String) -> Void)){
+    func getProducts(siteId: String, productModel: ProductModel, ok: @escaping ((ProductModel) -> Void), error: @escaping ((String) -> Void)){
         var url = getApi(api: .getProducts).replacingOccurrences(of: "{siteId}", with: siteId)
-        url += "limit=\(limit)"
-        url += "&offset=\(offset)"
-        url += (sort == "") ? "" : "&sort=\(sort)"
-        filters.forEach { (filter) in
-            url += "&\(filter.filer)=\(filter.value)"
+        url += "limit=\(productModel.paging.limit)"
+        url += "&offset=\(productModel.paging.offset)"
+        url += (productModel.sort.id == "") ? "" : "&sort=\(productModel.sort.id)"
+        productModel.filters.forEach { (filter) in
+            let idFilter = filter.id
+            filter.values.forEach { (filterValue) in
+                url += "&\(idFilter)=\(filterValue.id)"
+            }
+        }
+        if let urlString = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            url = urlString
         }
         getReturnData(url: url, statusCorrect: [200, 201]) { (data) in
-            let product = try? JSONDecoder().decode(Product.self, from: data)
+            let product = try? JSONDecoder().decode(ProductModel.self, from: data)
+            if let productReturn = product {
+                print(productReturn)
+                ok(productReturn)
+            } else {
+                error(TextConstants().WS_ERROR_NO_DATA)
+            }
+        } error: { (err) in
+            error(err)
+        }
+
+    }
+    
+    func getProducts(siteId: String, textSearch: String, ok: @escaping ((ProductModel) -> Void), error: @escaping ((String) -> Void)){
+        var url = getApi(api: .getSearchProducts).replacingOccurrences(of: "{siteId}", with: siteId).replacingOccurrences(of: "{text}", with: textSearch)
+
+        if let urlString = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            url = urlString
+        }
+        getReturnData(url: url, statusCorrect: [200, 201]) { (data) in
+            let product = try? ProductModel(data: data)
             if let productReturn = product {
                 print(productReturn)
                 ok(productReturn)

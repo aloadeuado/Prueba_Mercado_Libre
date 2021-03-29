@@ -1,37 +1,67 @@
-/* 
-Copyright (c) 2021 Swift Models Generated from JSON powered by http://www.json4swift.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar
-
-*/
+//
+//  Paging.swift
+//  testmercadolibre
+//
+//  Created by Pedro Alonso Daza B on 28/03/21.
+//
 
 import Foundation
-struct Paging : Codable {
-	let total : Int?
-	let primary_results : Int?
-	let offset : Int?
-	let limit : Int?
+// MARK: - Paging
+class Paging: Codable {
+    var total, primaryResults, offset, limit: Int
 
-	enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey {
+        case total
+        case primaryResults = "primary_results"
+        case offset, limit
+    }
 
-		case total = "total"
-		case primary_results = "primary_results"
-		case offset = "offset"
-		case limit = "limit"
-	}
+    init(total: Int, primaryResults: Int, offset: Int, limit: Int) {
+        self.total = total
+        self.primaryResults = primaryResults
+        self.offset = offset
+        self.limit = limit
+    }
+}
 
-	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		total = try values.decodeIfPresent(Int.self, forKey: .total)
-		primary_results = try values.decodeIfPresent(Int.self, forKey: .primary_results)
-		offset = try values.decodeIfPresent(Int.self, forKey: .offset)
-		limit = try values.decodeIfPresent(Int.self, forKey: .limit)
-	}
+// MARK: Paging convenience initializers and mutators
 
+extension Paging {
+    convenience init(data: Data) throws {
+        let me = try newJSONDecoder().decode(Paging.self, from: data)
+        self.init(total: me.total, primaryResults: me.primaryResults, offset: me.offset, limit: me.limit)
+    }
+
+    convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
+        guard let data = json.data(using: encoding) else {
+            throw NSError(domain: "JSONDecoding", code: 0, userInfo: nil)
+        }
+        try self.init(data: data)
+    }
+
+    convenience init(fromURL url: URL) throws {
+        try self.init(data: try Data(contentsOf: url))
+    }
+
+    func with(
+        total: Int? = nil,
+        primaryResults: Int? = nil,
+        offset: Int? = nil,
+        limit: Int? = nil
+    ) -> Paging {
+        return Paging(
+            total: total ?? self.total,
+            primaryResults: primaryResults ?? self.primaryResults,
+            offset: offset ?? self.offset,
+            limit: limit ?? self.limit
+        )
+    }
+
+    func jsonData() throws -> Data {
+        return try newJSONEncoder().encode(self)
+    }
+
+    func jsonString(encoding: String.Encoding = .utf8) throws -> String? {
+        return String(data: try self.jsonData(), encoding: encoding)
+    }
 }

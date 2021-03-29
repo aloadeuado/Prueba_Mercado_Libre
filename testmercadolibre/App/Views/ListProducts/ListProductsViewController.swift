@@ -13,20 +13,23 @@ class ListProductsViewController: UIViewController {
     @IBOutlet weak var filterCategoryView: FilterCategoryView!
     @IBOutlet weak var sortSelectOptionView: SelectOptionView!
     
+    @IBOutlet weak var topProductCollectionViewLayout: NSLayoutConstraint!
     @IBOutlet weak var filtersLabel: UILabel!
     @IBOutlet weak var productCollectionView: UICollectionView!
     var listProductsViewModel: ListProductsViewModel?
     
-    var siteModel: SiteModel?
-    var products: Product?
+    var siteModel = SiteModel()
+    var listCategoriesFilters = [FilterData]()
+    var isLoadingProdcuts = false
+    var isLoadingNewProducts = false
+    var products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
+    var productsBefore = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
     var categories = [CategoryModel]()
-    var listTextFilters = [String]()
-    var indexSelectedSort = 0
-    var indexSelectedFilter = 0
-    
-    
-    var listFilters = [FilterData]()
-    
+    var categoryText: String = ""
+    var indexSelectedCategory = 0
+    var numberOfItems: Int32 = 10
+    var lastContentSizeHeight:CGFloat = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,86 +41,67 @@ class ListProductsViewController: UIViewController {
         listProductsViewModel = ListProductsViewModel(listProductsViewModelDelegate: self)
         filterCategoryView.setCategoryFilter(categoryTextArray: ["Option1", "Option1Option1", "Option1222", "Option1Option1"])
         filterCategoryView.showSpinner()
+        filterCategoryView.delegate = self
         sortSelectOptionView.delegate = self
+        searchBarView.delegate = self
 
         productCollectionView.dataSource = self
         productCollectionView.delegate = self
+        showTools()
         if listProductsViewModel?.getKeepSite() == "Save" {
             self.listProductsViewModel?.geInternalSite()
             return
         }
-        if let site = siteModel {
-            
-            listProductsViewModel?.getCategoriesOfSites(siteId: site.id)
-        }
+        listProductsViewModel?.getCategoriesOfSites(siteId: siteModel.id)
+        
     }
 
-    //Load products
-    func loadSortFilters(){
-        if let product = self.products {
-            guard let available_sorts = product.available_sorts else {return}
-            //listSorts = available_sorts
-            var listTextSorts = [String]()
-            available_sorts.forEach { (available_filters) in
-                listTextSorts.append(available_filters.name ?? "")
-            }
-            sortSelectOptionView.arrayList = listTextSorts
-            
-            guard let filtersSelect = product.filters else {
-                return
-            }
-            guard let available_filters = product.available_filters else {
-                return
-            }
-            listFilters = [FilterData]()
-            available_filters.forEach { (available_filters) in
-                let idTitle = available_filters.id ?? ""
-                let nameTitle = available_filters.name ?? ""
-                let filterFilter = filtersSelect.first { (filters) -> Bool in
-                    return filters.id == available_filters.id
-                }
-                let filterTitleData = FilterData(idTitle: idTitle, nameTitle: nameTitle, idValue: "", nameValue: "", isTitle: true, state: false)
-                listFilters.append(filterTitleData)
-                if let values = available_filters.values {
-                    values.forEach { (value) in
-                        let idValue = value.id ?? ""
-                        let nameValue = value.name ?? ""
-                        var state = false
-                        if let filterFilter1 = filterFilter {
-                             if filterFilter1.values?.first(where: { (value2) -> Bool in
-                                return value2.id == value.id
-                            }) != nil {
-                                state = true
-                            }
-                        }
-                        let filterValueData = FilterData(idTitle: idTitle, nameTitle: nameTitle, idValue: idValue, nameValue: nameValue, isTitle: false, state: state)
-                        listFilters.append(filterValueData)
-                    }
-                }
-            }
-        }
+    func reloadDataProducts(){
+        products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
+        productsBefore = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
+        products = listProductsViewModel?.setCatogoryProduct(nameCategory: categoryText, categoryModel: self.categories[indexSelectedCategory], productModel: products) ?? products
+        products = listProductsViewModel?.setInitOffsetAndLimit(numberOfItems: numberOfItems, productModel: products) ?? products
+        lastContentSizeHeight = 0
+        
+        loadDataProducts()
     }
     
-    func loadProducts(){
-        if !self.categories.isEmpty {
-            if let site = siteModel {
-                guard let product = self.products else {
-                    listProductsViewModel?.getProducts(siteId: site.id, offset: 0, limit: 10, sort: "", filters: [SortData(filer: "category", value: self.categories[0].id)])
-                    return
-                }
-                guard let sorts = product.available_sorts else {return}
-                guard let filters = product.available_filters  else {return}
-                let sortText = ((sorts.isEmpty) ? "": sorts[indexSelectedSort].name) ?? ""
-                var listFiltersSend = [SortData]()
-                if filters.isEmpty {
-                    listFiltersSend = [SortData(filer: "category", value: self.categories[0].id)]
-                } else {
-                    //filters.
-                }
+    func loadDataProducts() {
+        isLoadingProdcuts = true
+        productCollectionView.reloadData()
+        productsBefore = products
+        listProductsViewModel?.getProducts(siteId: siteModel.id, productModel: products)
+    }
 
-                listProductsViewModel?.getProducts(siteId: site.id, offset: 0, limit: 10, sort: sortText, filters: listFiltersSend)
-            }
-        }
+    func loadSearchDataProducts(textSearch: String) {
+        isLoadingProdcuts = true
+        productCollectionView.reloadData()
+        productsBefore = products
+        listProductsViewModel?.getProducts(siteId: siteModel.id, textSearch: textSearch)
+    }
+    
+    func showTools(){
+        self.topProductCollectionViewLayout.constant = -110
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+          
+            
+            self.topProductCollectionViewLayout.constant = 15
+        }, completion: { finished in
+            self.topProductCollectionViewLayout.constant = 15
+            
+        })
+    }
+    
+    func hideTools(){
+        self.topProductCollectionViewLayout.constant = 15
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+          
+            
+            self.topProductCollectionViewLayout.constant = -110
+        }, completion: { finished in
+            self.topProductCollectionViewLayout.constant = -110
+            
+        })
     }
     /*
     // MARK: - Navigation
@@ -130,7 +114,7 @@ class ListProductsViewController: UIViewController {
     */
     //MARK: -Action
     @IBAction func selectFileterPressed(_ sender: UIButton) {
-        DialogSelectMultiFilterViewController.show(controller: self, delegate: self, listFilters: listFilters)
+        DialogSelectMultiFilterViewController.show(controller: self, delegate: self, listFilters: listCategoriesFilters)
     }
     
 }
@@ -138,13 +122,42 @@ class ListProductsViewController: UIViewController {
 extension ListProductsViewController: SearchBarViewDelegate {
     func searchBarView(didEdintingText text: String) {
 
+        if text.count >= 1{
+            hideTools()
+            products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
+            productsBefore = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
+
+            products = listProductsViewModel?.setInitOffsetAndLimit(numberOfItems: numberOfItems, productModel: products) ?? products
+            lastContentSizeHeight = 0
+            
+            loadSearchDataProducts(textSearch: text)
+        
+        } else {
+            showTools()
+            reloadDataProducts()
+            // se reinician ambas variables para priorizar las seleccion de categoria
+            
+            
+        }
+        
     }
     
     func searchBarView(didClearText textBeforeClear: String) {
-
+        showTools()
+        // se reinician ambas variables para priorizar las seleccion de categoria
+        reloadDataProducts()
     }
     
     
+}
+//MARK: -selectCategoryDelegate
+extension ListProductsViewController: selectCategoryDelegate {
+    func selectIndexCategory(index: Int, categoryText: String) {
+        indexSelectedCategory = index
+        self.categoryText = categoryText
+        // se reinician ambas variables para priorizar las seleccion de categoria
+        reloadDataProducts()
+    }
 }
 //MARK: -ListProductsViewModel
 extension ListProductsViewController: ListProductsViewModelDelegate {
@@ -152,9 +165,16 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
         self.siteModel = siteModel
     }
     
-    func listProductsViewModel(succesGetProduct products: Product) {
+    func listProductsViewModel(succesGetProduct products: ProductModel) {
+        
+        var productsNewsResult = self.products.results
+        productsNewsResult.append(contentsOf: products.results)
         self.products = products
-        loadSortFilters()
+        self.products.results = productsNewsResult
+        sortSelectOptionView.arrayList = listProductsViewModel?.getListTextSortInternal(productModel: self.products) ?? [String]()
+        listCategoriesFilters = listProductsViewModel?.getFiltersAvaible(productModel: self.products) ?? [FilterData]()
+        productCollectionView.setContentOffset(CGPoint(x: 0, y: lastContentSizeHeight), animated: false)
+        isLoadingProdcuts = false
         productCollectionView.reloadData()
         
     }
@@ -167,12 +187,13 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
             listTextCategories.append(categoryModel.name)
         }
         filterCategoryView.setCategoryFilter(categoryTextArray: listTextCategories)
-        loadProducts()
         
     }
     
     func listProductsViewModel(onError error: String) {
-        
+        isLoadingProdcuts = false
+        products = productsBefore
+        productCollectionView.reloadData()
     }
     
     
@@ -180,8 +201,14 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
 //MARK: -SelectOptionViewDelegate
 extension ListProductsViewController: SelectOptionViewDelegate {
     func selectOptionView(didSelectedItem item: String, index: Int) {
-        indexSelectedSort = index
-        loadProducts()
+        //indexSelectedSort = index
+        //loadProducts()
+        self.products = listProductsViewModel?.setSortValue(nameSort: item, productModel: self.products) ?? self.products
+        products = listProductsViewModel?.setInitOffsetAndLimit(numberOfItems: numberOfItems, productModel: products) ?? products
+        lastContentSizeHeight = 0
+        
+        loadDataProducts()
+        products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
     }
     
     func selectOptionView(didCancel item: String) {
@@ -196,7 +223,7 @@ extension ListProductsViewController: FiltersTableViewDelegate{
     }
     
     func filtersTableView(aplyFilter listFiltersSelecter: [FilterData]) {
-        self.listFilters = listFiltersSelecter
+        self.listCategoriesFilters = listFiltersSelecter
         var text = ""
         listFiltersSelecter.forEach { (filterData) in
             text += (filterData.isTitle) ? "" : (filterData.state) ? filterData.nameTitle + ": " + filterData.nameValue + "  " : ""
@@ -204,6 +231,12 @@ extension ListProductsViewController: FiltersTableViewDelegate{
         }
         
         filtersLabel.text = text
+        
+        self.products = listProductsViewModel?.setNewFilters(listFilterData: self.listCategoriesFilters, productModel: self.products) ?? self.products
+        products = listProductsViewModel?.setInitOffsetAndLimit(numberOfItems: numberOfItems, productModel: products) ?? products
+        lastContentSizeHeight = 0
+        loadDataProducts()
+        products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
     }
     
     
@@ -214,26 +247,23 @@ extension ListProductsViewController: UICollectionViewDataSource {
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let product = products else {
-            return 0
-        }
-        guard let results = product.results else {
-            return 0
-        }
-        return results.count
+
+        return isLoadingProdcuts ? 3 : products.results.count + (products.paging.total <= (self.products.paging.offset + Int(numberOfItems)) ? 0 : 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as? ProductCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let product = products else {
-            return UICollectionViewCell()
+
+        if (indexPath.row) >= products.results.count {
+            cell.showSpinner()
+        } else if (isLoadingProdcuts){
+            cell.showSpinner()
+        }else {
+            cell.stopSpinner()
+            cell.setValue(result: products.results[indexPath.row])
         }
-        guard let results = product.results else {
-            return UICollectionViewCell()
-        }
-        cell.setValue(result: results[indexPath.row])
         return cell
     }
 }
@@ -244,6 +274,31 @@ extension ListProductsViewController: UICollectionViewDelegate {
 //MARK: -UICollectionViewLayout
 extension ListProductsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 100)
+        return CGSize(width: 165, height: 280)
+    }
+}
+//MARK: -UIScrollViewDelegate
+extension ListProductsViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let contentScrollTrigger = scrollView.contentSize.height - 600
+        if scrollView.contentOffset.y >= contentScrollTrigger {
+            //initIndexOffset += (numberItemForPage + 1)
+            if isLoadingNewProducts && !isLoadingProdcuts {
+                if products.paging.total <= (self.products.paging.offset + Int(numberOfItems)) {
+                    isLoadingNewProducts = false
+                    return
+                }
+                self.products = listProductsViewModel?.addItems(numberOfItems: numberOfItems, productModel: self.products) ?? self.products
+                isLoadingNewProducts = false
+                lastContentSizeHeight = scrollView.contentOffset.y
+                
+                loadDataProducts()
+            }
+            
+        }else {
+            isLoadingNewProducts = true
+        }
+        
+        
     }
 }

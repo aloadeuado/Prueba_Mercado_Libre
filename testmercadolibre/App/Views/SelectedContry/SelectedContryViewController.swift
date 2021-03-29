@@ -82,7 +82,7 @@ extension SelectedContryViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? ListProductsViewController {
-            controller.siteModel = siteModel
+            controller.siteModel = siteModel ?? SiteModel()
         }
     }
 }

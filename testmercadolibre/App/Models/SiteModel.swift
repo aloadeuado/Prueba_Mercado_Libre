@@ -8,6 +8,9 @@ struct SiteModel : Codable {
     //no seriazable
     var state: Bool = false
 
+    init(){
+        
+    }
     mutating func setState(state: Bool) {
         self.state = state
     }

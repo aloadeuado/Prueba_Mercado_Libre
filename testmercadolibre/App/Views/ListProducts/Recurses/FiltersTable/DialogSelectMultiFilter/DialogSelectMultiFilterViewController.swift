@@ -26,8 +26,7 @@ class DialogSelectMultiFilterViewController: UIViewController {
         filtersTableView.listFilters = listFilters
         filtersTableView.apply = {
             self.dismiss(animated: true, completion: nil)
-        }
-        
+        } 
     }
     
 }

@@ -1,26 +1,34 @@
 //
-//  Sort.swift
+//  FilterValue.swift
 //  testmercadolibre
 //
 //  Created by Pedro Alonso Daza B on 28/03/21.
 //
 
 import Foundation
-// MARK: - Sort
-class Sort: Codable {
+
+// MARK: - FilterValue
+class FilterValue: Codable {
     let id, name: String
+    //let pathFromRoot: [Sort]
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        //case pathFromRoot = "path_from_root"
+    }
 
     init(id: String, name: String) {
         self.id = id
         self.name = name
+        //self.pathFromRoot = pathFromRoot
     }
 }
 
-// MARK: Sort convenience initializers and mutators
+// MARK: FilterValue convenience initializers and mutators
 
-extension Sort {
+extension FilterValue {
     convenience init(data: Data) throws {
-        let me = try newJSONDecoder().decode(Sort.self, from: data)
+        let me = try newJSONDecoder().decode(FilterValue.self, from: data)
         self.init(id: me.id, name: me.name)
     }
 
@@ -37,9 +45,10 @@ extension Sort {
 
     func with(
         id: String? = nil,
-        name: String? = nil
-    ) -> Sort {
-        return Sort(
+        name: String? = nil,
+        pathFromRoot: [Sort]? = nil
+    ) -> FilterValue {
+        return FilterValue(
             id: id ?? self.id,
             name: name ?? self.name
         )
