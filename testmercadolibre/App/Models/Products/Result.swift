@@ -8,22 +8,23 @@
 import Foundation
 // MARK: - ResultModel
 class ResultModel: Codable {
-    let id, siteID, title: String
+    let id, siteID, title, permalink: String
     let price: Double?
     let thumbnail: String
 
     enum CodingKeys: String, CodingKey {
         case id
         case siteID = "site_id"
-        case title, price, thumbnail
+        case title, price, thumbnail, permalink
     }
 
-    init(id: String, siteID: String, title: String, price: Double, thumbnail: String) {
+    init(id: String, siteID: String, title: String, price: Double, thumbnail: String, permalink: String) {
         self.id = id
         self.siteID = siteID
         self.title = title
         self.price = price
         self.thumbnail = thumbnail
+        self.permalink = permalink
     }
 }
 
@@ -32,7 +33,7 @@ class ResultModel: Codable {
 extension ResultModel {
     convenience init(data: Data) throws {
         let me = try newJSONDecoder().decode(ResultModel.self, from: data)
-        self.init(id: me.id, siteID: me.siteID, title: me.title, price: me.price ?? 0, thumbnail: me.thumbnail)
+        self.init(id: me.id, siteID: me.siteID, title: me.title, price: me.price ?? 0, thumbnail: me.thumbnail, permalink: me.permalink)
     }
 
     convenience init(_ json: String, using encoding: String.Encoding = .utf8) throws {
@@ -51,14 +52,16 @@ extension ResultModel {
         siteID: String? = nil,
         title: String? = nil,
         price: Double? = nil,
-        thumbnail: String? = nil
+        thumbnail: String? = nil,
+        permalink: String? = nil
     ) -> ResultModel {
         return ResultModel(
             id: id ?? self.id,
             siteID: siteID ?? self.siteID,
             title: title ?? self.title,
             price: price ?? 0,
-            thumbnail: thumbnail ?? self.thumbnail
+            thumbnail: thumbnail ?? self.thumbnail,
+            permalink: permalink ?? ""
         )
     }
 

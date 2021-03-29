@@ -198,11 +198,22 @@
                         <outlet property="searchBarView" destination="m1G-b9-3bF" id="OGS-vc-JQK"/>
                         <outlet property="sortSelectOptionView" destination="zEb-kC-atb" id="Sgm-yG-Ibx"/>
                         <outlet property="topProductCollectionViewLayout" destination="86V-dW-azn" id="EL4-3u-P2g"/>
+                        <segue destination="FtK-ro-FWZ" kind="show" identifier="showDetail" id="Lgb-L3-Xgp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YaY-Rj-Y1K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-284.05797101449275" y="61.607142857142854"/>
+        </scene>
+        <!--DetailProduct-->
+        <scene sceneID="ChO-qd-apr">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailProduct" id="FtK-ro-FWZ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="nYl-Ok-Hvf"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Px0-hS-plk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="354" y="-39"/>
         </scene>
     </scenes>
     <resources>

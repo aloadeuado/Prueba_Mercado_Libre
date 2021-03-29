@@ -79,6 +79,20 @@ class FiltersTableView: UIView {
         //self.collectionView.register(nib1, forCellWithReuseIdentifier: Constants.ITEM_CELL1)
         tableView.register(nib, forCellReuseIdentifier: FiltersTableViewCell.identifier)
     }
+    
+    func setOnlyState(filterDataRecibed: FilterData) {
+        self.listFilters.forEach { (filterData) in
+            if filterData.idTitle == filterDataRecibed.idTitle && filterData.idValue == filterDataRecibed.idValue  {
+                print("==StateTrue==")
+                print(filterData)
+                filterData.state = !filterData.state
+            } else if filterData.idTitle == filterDataRecibed.idTitle {
+                print("==StateFalse==")
+                print(filterData)
+                filterData.state = false
+            }
+        }
+    }
 }
 //MARK: -Actions
 extension FiltersTableView{
@@ -108,8 +122,12 @@ extension FiltersTableView: UITableViewDataSource {
 //MARK: -UITableViewDataSource
 extension FiltersTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.listFilters[indexPath.row].state = !self.listFilters[indexPath.row].state
+        
+
+        setOnlyState(filterDataRecibed: self.listFilters[indexPath.row])
         tableView.reloadData()
         delegate?.filtersTableView(didGetFilter: self.listFilters[indexPath.row], listFiltersSelecter: self.listFilters)
     }
+    
+    
 }

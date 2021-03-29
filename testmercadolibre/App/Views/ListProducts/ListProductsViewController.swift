@@ -29,7 +29,8 @@ class ListProductsViewController: UIViewController {
     var indexSelectedCategory = 0
     var numberOfItems: Int32 = 10
     var lastContentSizeHeight:CGFloat = 0
-
+//Send Detail
+    var result = ResultModel(id: "", siteID: "", title: "", price: 0, thumbnail: "  ", permalink: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -269,7 +270,10 @@ extension ListProductsViewController: UICollectionViewDataSource {
 }
 //MARK: -UICollectionViewDelegate
 extension ListProductsViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        result = products.results[indexPath.row]
+        performSegue(withIdentifier: "showDetail", sender: nil)
+    }
 }
 //MARK: -UICollectionViewLayout
 extension ListProductsViewController: UICollectionViewDelegateFlowLayout {
@@ -300,5 +304,13 @@ extension ListProductsViewController: UIScrollViewDelegate {
         }
         
         
+    }
+}
+//MARK: -prepare
+extension ListProductsViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? DetailProductViewController {
+            vc.result = result
+        }
     }
 }
