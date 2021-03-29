@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Toast_Swift
 class SelectedContryViewController: UIViewController {
 
 
@@ -145,10 +145,12 @@ extension SelectedContryViewController: SelectedContryDelegate {
     
     func selectedContry(onNoData nodata: String) {
         isLoadingSites = false
+        self.view.makeToast(nodata)
     }
     
     func selectedContry(onError error: String) {
         isLoadingSites = false
+        self.view.makeToast(error)
     }
     
     

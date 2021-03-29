@@ -9,6 +9,7 @@ target 'testmercadolibre' do
   pod 'SDWebImage', '~> 5.0'
   pod 'ABLoaderView', '~> 1.0.2'
   pod 'MaterialComponents/Chips'
+  pod 'Toast-Swift', '~> 5.0.1'
   # Pods for testmercadolibre
 
   target 'testmercadolibreTests' do

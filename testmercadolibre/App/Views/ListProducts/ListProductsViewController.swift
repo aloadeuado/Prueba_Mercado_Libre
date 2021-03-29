@@ -7,7 +7,7 @@
 
 import UIKit
 import MaterialComponents.MaterialChips
-
+import Toast_Swift
 class ListProductsViewController: UIViewController {
     @IBOutlet weak var searchBarView: SearchBarView!
     @IBOutlet weak var filterCategoryView: FilterCategoryView!
@@ -195,6 +195,7 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
         isLoadingProdcuts = false
         products = productsBefore
         productCollectionView.reloadData()
+        self.view.makeToast(error)
     }
     
     
