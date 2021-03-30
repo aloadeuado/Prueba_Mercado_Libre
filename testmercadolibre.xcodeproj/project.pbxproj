@@ -67,6 +67,7 @@
 		9582149D261193A900B1A22F /* DetailProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9582149C261193A900B1A22F /* DetailProductViewController.swift */; };
 		958214A3261199C900B1A22F /* DialogWebView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958214A2261199C800B1A22F /* DialogWebView.storyboard */; };
 		958214AB261199F100B1A22F /* DialogWebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958214AA261199F000B1A22F /* DialogWebViewViewController.swift */; };
+		958214BD2611BFBE00B1A22F /* ListProductsViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958214BC2611BFBD00B1A22F /* ListProductsViewModelTest.swift */; };
 		A5ECC9EFEF0961FD57204147 /* Pods_testmercadolibreTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D540EC25DF7BDA7E4DFC7CE /* Pods_testmercadolibreTests.framework */; };
 		D06E475ED62A6C0672CEC0FD /* Pods_testmercadolibre.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6096E719E396BE7C8D5E7B6 /* Pods_testmercadolibre.framework */; };
 /* End PBXBuildFile section */
@@ -164,6 +165,7 @@
 		9582149C261193A900B1A22F /* DetailProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductViewController.swift; sourceTree = "<group>"; };
 		958214A2261199C800B1A22F /* DialogWebView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DialogWebView.storyboard; sourceTree = "<group>"; };
 		958214AA261199F000B1A22F /* DialogWebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogWebViewViewController.swift; sourceTree = "<group>"; };
+		958214BC2611BFBD00B1A22F /* ListProductsViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListProductsViewModelTest.swift; sourceTree = "<group>"; };
 		A6096E719E396BE7C8D5E7B6 /* Pods_testmercadolibre.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testmercadolibre.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B470B3234E26EA6685E2473A /* Pods_testmercadolibre_testmercadolibreUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_testmercadolibre_testmercadolibreUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4FF13224DFA2301B5F9E49E /* Pods-testmercadolibre.debug(develop).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-testmercadolibre.debug(develop).xcconfig"; path = "Target Support Files/Pods-testmercadolibre/Pods-testmercadolibre.debug(develop).xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				9536F28726082BFB00A5B6A7 /* testmercadolibreTests.swift */,
 				9536F28926082BFB00A5B6A7 /* Info.plist */,
+				958214BC2611BFBD00B1A22F /* ListProductsViewModelTest.swift */,
 			);
 			path = testmercadolibreTests;
 			sourceTree = "<group>";
@@ -878,6 +881,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				958214BD2611BFBE00B1A22F /* ListProductsViewModelTest.swift in Sources */,
 				9536F28826082BFB00A5B6A7 /* testmercadolibreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
