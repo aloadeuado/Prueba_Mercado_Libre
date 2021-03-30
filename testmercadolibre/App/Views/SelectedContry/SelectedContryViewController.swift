@@ -13,6 +13,8 @@ class SelectedContryViewController: UIViewController {
     @IBOutlet weak var sitesTableView: UITableView!
     @IBOutlet weak var continueButton: CustomEnabledButton!
     
+    @IBOutlet weak var noDataView: UIView!
+    
     var isLoadingSites = false
     var selectedContryViewModel: SelectedContryViewModel?
     
@@ -25,6 +27,7 @@ class SelectedContryViewController: UIViewController {
     }
     
     func initComponent(){
+        noDataView.isHidden = true
         selectedContryViewModel = SelectedContryViewModel(selectedContryDelegate: self)
         isLoadingSites = true
         selectedContryViewModel?.getSites()
@@ -150,6 +153,7 @@ extension SelectedContryViewController: SelectedContryDelegate {
     
     func selectedContry(onError error: String) {
         isLoadingSites = false
+        noDataView.isHidden = false
         self.view.makeToast(error)
     }
     

@@ -8,16 +8,19 @@
 import UIKit
 import MaterialComponents.MaterialChips
 import Toast_Swift
+import ABLoaderView
 class ListProductsViewController: UIViewController {
     @IBOutlet weak var searchBarView: SearchBarView!
     @IBOutlet weak var filterCategoryView: FilterCategoryView!
     @IBOutlet weak var sortSelectOptionView: SelectOptionView!
     
+    @IBOutlet weak var filterSelected: CustomView!
     @IBOutlet weak var topProductCollectionViewLayout: NSLayoutConstraint!
     @IBOutlet weak var filtersLabel: UILabel!
     @IBOutlet weak var productCollectionView: UICollectionView!
     var listProductsViewModel: ListProductsViewModel?
     
+    @IBOutlet weak var noDataView: UIView!
     var siteModel = SiteModel()
     var listCategoriesFilters = [FilterData]()
     var isLoadingProdcuts = false
@@ -58,6 +61,8 @@ class ListProductsViewController: UIViewController {
     }
 
     func reloadDataProducts(){
+        noDataView.isHidden = true
+        showSpinner()
         products = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
         productsBefore = ProductModel(siteID: "", paging: Paging(total: 0, primaryResults: 0, offset: 0, limit: 0), results: [ResultModel](), secondaryResults: [JSONAny](), relatedResults: [JSONAny](), sort: Sort(id: "", name: ""), availableSorts: [Sort](), filters: [Filter](), availableFilters: [AvailableFilter]())
         products = listProductsViewModel?.setCatogoryProduct(nameCategory: categoryText, categoryModel: self.categories[indexSelectedCategory], productModel: products) ?? products
@@ -104,15 +109,16 @@ class ListProductsViewController: UIViewController {
             
         })
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func showSpinner(){
+        ABLoader().startShining(sortSelectOptionView)
+        ABLoader().startShining(filterSelected)
     }
-    */
+    
+    func stopSpinner(){
+        ABLoader().stopShining(sortSelectOptionView)
+        ABLoader().stopShining(filterSelected)
+    }
     //MARK: -Action
     @IBAction func selectFileterPressed(_ sender: UIButton) {
         DialogSelectMultiFilterViewController.show(controller: self, delegate: self, listFilters: listCategoriesFilters)
@@ -167,7 +173,7 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
     }
     
     func listProductsViewModel(succesGetProduct products: ProductModel) {
-        
+        stopSpinner()
         var productsNewsResult = self.products.results
         productsNewsResult.append(contentsOf: products.results)
         self.products = products
@@ -192,6 +198,8 @@ extension ListProductsViewController: ListProductsViewModelDelegate {
     }
     
     func listProductsViewModel(onError error: String) {
+        stopSpinner()
+        noDataView.isHidden = false
         isLoadingProdcuts = false
         products = productsBefore
         productCollectionView.reloadData()
